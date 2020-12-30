@@ -8,6 +8,8 @@
 #import "ViewController.h"
 #import "RouteCell.h"
 #import "Ports.h"
+#import "RecommandController.h"
+#import "ResultViewController.h"
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
@@ -20,7 +22,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.frame = [UIScreen mainScreen].bounds;
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor grayColor];
     self.title = @"AirRoutes🛩";
     
     self.tableView = [[UITableView alloc]initWithFrame:self.view.frame];
@@ -81,9 +83,25 @@
             [model.clientModels addObject:client];
             
             model.leftTickets -= cnt;
-            
+            //[self.navigationController popViewControllerAnimated:YES];
             NSLog(@"成功购票！");
+            ResultViewController* resultVC = [[ResultViewController alloc]init];
+            resultVC.model = model;
+            [self.navigationController pushViewController:resultVC animated:YES];
         }else{
+            NSMutableArray* temp = self.model.routes;
+            [temp removeObject:model];
+            
+            if(temp.count > 0){
+                RecommandController* recommandVC = [[RecommandController alloc]init];
+                recommandVC.model = temp;
+                recommandVC.modalPresentationStyle = UIModalPresentationFormSheet;
+                [self presentViewController:recommandVC animated:YES completion:^{
+                    
+                }];
+            }else{
+                NSLog(@"购票失败");
+            }
             
         }
         

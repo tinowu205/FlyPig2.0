@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22098BBE259C47AB007C6B37 /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22098BBD259C47AB007C6B37 /* ResultViewController.m */; };
+		220E7C5D259B82B30082F4F9 /* RecommandController.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E7C5C259B82B30082F4F9 /* RecommandController.m */; };
 		2213F2E32598D97400498640 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2213F2E22598D97400498640 /* AppDelegate.m */; };
 		2213F2E62598D97400498640 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2213F2E52598D97400498640 /* SceneDelegate.m */; };
 		2213F2E92598D97400498640 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2213F2E82598D97400498640 /* ViewController.m */; };
@@ -44,6 +46,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22098BBC259C47AB007C6B37 /* ResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
+		22098BBD259C47AB007C6B37 /* ResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
+		220E7C5B259B82B30082F4F9 /* RecommandController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommandController.h; sourceTree = "<group>"; };
+		220E7C5C259B82B30082F4F9 /* RecommandController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommandController.m; sourceTree = "<group>"; };
 		2213F2DE2598D97400498640 /* FlyPig2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlyPig2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2213F2E12598D97400498640 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2213F2E22598D97400498640 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -168,6 +174,10 @@
 				2268EEF9259A036B009841B5 /* HomeViewController.m */,
 				2213F2E72598D97400498640 /* ViewController.h */,
 				2213F2E82598D97400498640 /* ViewController.m */,
+				220E7C5B259B82B30082F4F9 /* RecommandController.h */,
+				220E7C5C259B82B30082F4F9 /* RecommandController.m */,
+				22098BBC259C47AB007C6B37 /* ResultViewController.h */,
+				22098BBD259C47AB007C6B37 /* ResultViewController.m */,
 				22555E622599F9AF008AA3A7 /* Views */,
 			);
 			path = Controllers;
@@ -331,11 +341,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2213F3222598DF5C00498640 /* Ports.c in Sources */,
+				22098BBE259C47AB007C6B37 /* ResultViewController.m in Sources */,
 				2213F33C2598E05E00498640 /* CBridge.m in Sources */,
 				2213F2E92598D97400498640 /* ViewController.m in Sources */,
 				2213F31C2598DF4A00498640 /* AirRoute.c in Sources */,
 				2213F2E32598D97400498640 /* AppDelegate.m in Sources */,
 				2213F2F42598D97600498640 /* main.m in Sources */,
+				220E7C5D259B82B30082F4F9 /* RecommandController.m in Sources */,
 				22555E652599F9CF008AA3A7 /* RouteCell.m in Sources */,
 				2286E7472599EE43002F1E22 /* ClientModel.m in Sources */,
 				2286E7412599EE29002F1E22 /* CandidateModel.m in Sources */,

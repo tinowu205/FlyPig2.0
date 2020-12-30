@@ -8,7 +8,7 @@
 #import "HomeViewController.h"
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
-@interface HomeViewController ()
+@interface HomeViewController ()<UITextViewDelegate>
 
 @end
 
@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.frame = [UIScreen mainScreen].bounds;
-    self.view.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
     self.title = @"FlyPig";
     [self layoutViews];
     
@@ -29,6 +29,11 @@
     self.bgView = [[UIView alloc]initWithFrame:CGRectMake(30, 150, ScreenWidth-60, ScreenHeight-250)];
     self.bgView.backgroundColor = [UIColor whiteColor];
     self.bgView.layer.cornerRadius = 20;
+    self.bgView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.bgView.layer.shadowOffset = CGSizeMake(0,0);
+    self.bgView.layer.shadowOpacity = 0.5;
+    self.bgView.layer.shadowRadius = 10;
+    
     [self.view addSubview:_bgView];
     
     UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(40, 20, 300, 80)];
@@ -63,6 +68,10 @@
     self.detailVC.destination = self.searchView.text;
     
     [self.navigationController pushViewController:_detailVC animated:YES];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    textView.text = @"";
 }
 /*
 #pragma mark - Navigation

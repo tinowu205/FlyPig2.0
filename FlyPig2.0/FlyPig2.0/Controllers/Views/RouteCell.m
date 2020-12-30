@@ -29,12 +29,12 @@
     return self;
 }
 -(void)layoutViews{
-    self.routeID = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 100, 20)];
-    self.des = [[UILabel alloc]initWithFrame:CGRectMake(10, 50, 100, 50)];
-    self.planeID = [[UILabel alloc]initWithFrame:CGRectMake(10, 120, 80, 20)];
+    self.routeID = [[UILabel alloc]initWithFrame:CGRectMake(15, 10, 100, 20)];
+    self.des = [[UILabel alloc]initWithFrame:CGRectMake(15, 50, 100, 50)];
+    self.planeID = [[UILabel alloc]initWithFrame:CGRectMake(15, 120, 80, 20)];
     self.date = [[UILabel alloc]initWithFrame:CGRectMake(ScreenWidth/2-20, 20, 80, 50)];
-    self.imageview = [[UIImageView alloc]initWithFrame:CGRectMake(ScreenWidth/2-30, 70, 50, 50)];
-    self.ticket = [[UILabel alloc]initWithFrame:CGRectMake(ScreenWidth-80, 50, 100, 50)];
+    self.imageview = [[UIImageView alloc]initWithFrame:CGRectMake(ScreenWidth/2-25, 70, 40, 40)];
+    self.ticket = [[UILabel alloc]initWithFrame:CGRectMake(ScreenWidth-85, 50, 100, 50)];
     
     [self addSubview:_routeID];
     [self addSubview:_des];
