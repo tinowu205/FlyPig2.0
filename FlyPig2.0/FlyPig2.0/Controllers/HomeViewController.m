@@ -6,6 +6,8 @@
 //
 
 #import "HomeViewController.h"
+#import "DBManager.h"
+
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 @interface HomeViewController ()<UITextViewDelegate>
@@ -23,6 +25,9 @@
     
     UIBarButtonItem* item = [ [UIBarButtonItem alloc]initWithImage:[UIImage systemImageNamed:@"sun.max"] menu:nil];
     self.navigationItem.rightBarButtonItem = item;
+    
+    
+    [self DBTest];
 }
 
 -(void)layoutViews{
@@ -72,6 +77,12 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView{
     textView.text = @"";
+}
+
+- (void)DBTest {
+    DBManager* manager = [DBManager sharedManager];
+    assert([manager selectAllRoute]);
+    
 }
 /*
 #pragma mark - Navigation

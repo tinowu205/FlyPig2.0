@@ -27,7 +27,10 @@
     self.airportID.font = [UIFont systemFontOfSize:20];
     self.airportID.textColor = [UIColor orangeColor];
     
-    self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 70, 50, 50)];
+    self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 70, 50, 50)];
+    
+    self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 120, 120, 50)];
+    self.nameLabel.font = [UIFont systemFontOfSize:25];
     
     self.arID = [[UILabel alloc]initWithFrame:CGRectMake(ScreenWidth/2-50, 50, 80, 50)];
     self.arID.font = [UIFont systemFontOfSize:25];
@@ -53,6 +56,7 @@
     [self.bgView addSubview:_apID];
     [self.bgView addSubview:_seatID];
     [self.bgView addSubview:_airportID];
+    [self.bgView addSubview:_nameLabel];
     
     [self setupData];
 }
@@ -66,5 +70,8 @@
     self.seatID.text = [NSString stringWithFormat:@"A%d",arc4random() % 100];
     
     self.airportID.text = @"CW AIRPORT";
+    
+    ClientModel* client = self.model.clientModels.lastObject;
+    self.nameLabel.text = client.name;
 }
 @end

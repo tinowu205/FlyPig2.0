@@ -10,6 +10,8 @@
 #import "Ports.h"
 #import "RecommandController.h"
 #import "ResultViewController.h"
+#import "DBManager.h"
+
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
@@ -28,13 +30,19 @@
     self.tableView = [[UITableView alloc]initWithFrame:self.view.frame];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.tableFooterView = [[UIView alloc]init];
     
     [self.view addSubview:_tableView];
     
     if([_destination isEqual: @""]){
-        self.model = [[CBridge alloc]initWithAirport:&a];
+        DBManager *manager = [DBManager sharedManager];
+        //self.model = [[CBridge alloc]initWithAirport:&a];
+        self.model = [[CBridge alloc]init];
+        self.model.routes = [[manager selectAllRoute] mutableCopy];
     }else{
-       self.model = [[CBridge alloc]initWithAirport:&a andDestination:_destination];
+//       self.model = [[CBridge alloc]initWithAirport:&a andDestination:_destination];
+        self.model = [[CBridge alloc]init];
+        self.model.routes = [[[DBManager sharedManager] selectRoutesFor:_destination] mutableCopy];
     }
     
 }
