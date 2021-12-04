@@ -7,6 +7,8 @@
 
 #import "DBManager.h"
 
+#define keyMap(name) @#name
+
 @interface DBManager ()
 
 @property(nonatomic,strong) OHMySQLStoreCoordinator *coordinator;
@@ -17,6 +19,8 @@
 
 @implementation DBManager
 
+#pragma mark -
+#pragma mark config
 + (instancetype)sharedManager {
     static DBManager *_manager;
     static dispatch_once_t token;
@@ -50,6 +54,9 @@
     self.context = queryContext;
 }
 
+#pragma mark -
+#pragma mark select
+
 - (NSArray *)selectAllRoute {
     OHMySQLQueryRequest* query = [OHMySQLQueryRequestFactory SELECT:@"routes" condition:nil];
     NSError* error = nil;
@@ -69,6 +76,7 @@
     
     return routes;
 }
+
 - (NSArray *)mapRoutes: (NSArray*)routes {
     if (routes.count == 0) {
         return [NSArray array];
@@ -87,5 +95,65 @@
     }
     
     return array;
+}
+
+#pragma mark -
+#pragma mark insert
+
+- (BOOL)insertInto:(NSString*)table value:(NSDictionary*)value {
+    OHMySQLQueryRequest* insert = [OHMySQLQueryRequestFactory INSERT:table set:value];
+    NSError* error = nil;
+    [self.context executeQueryRequestAndFetchResult:insert error:&error];
+    
+    if (!error) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL)insertToBuyWithName:(NSString* _Nonnull)name routeID:( NSNumber* _Nonnull)routeID planeID:( NSNumber* _Nonnull)planeID cnt:(NSNumber* _Nonnull)cnt {
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc]init];
+    [dict setValue:name forKey:@"name"];
+    [dict setValue:routeID forKey:@"routeID"];
+    [dict setValue:planeID forKey:@"planeID"];
+    [dict setValue:cnt forKey:@"cnt"];
+    
+    // truly insert
+    return [self insertInto:@"buy" value:dict];
+}
+
+- (BOOL)insertToClientsWithName:(NSString* _Nonnull)name cnt:( NSNumber* _Nonnull)cnt status:( NSNumber* _Nonnull )status plane:(NSNumber* _Nonnull)planeID {
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc]init];
+    [dict setValue:name forKey:@"name"];
+    [dict setValue:cnt forKey:@"orderCnt"];
+    [dict setValue:status forKey:@"status"];
+    [dict setValue:planeID forKey:@"planeID"];
+    
+    // truly insert
+    return [self insertInto:@"clients" value:dict];
+}
+
+#pragma mark -
+#pragma mark update
+- (BOOL)updateToTable:(NSString* _Nonnull)table value:(NSDictionary* _Nonnull)value condition:(NSString*)condition {
+    OHMySQLQueryRequest* update = [OHMySQLQueryRequestFactory UPDATE:table set:value condition:condition];
+    
+    NSError* error = nil;
+    [self.context executeQueryRequestAndFetchResult:update error:&error];
+    
+    if (!error) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL)updateLeftTickets:(NSNumber* _Nonnull)left airplaneID:(int)airplaneID {
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc]init];
+    
+    [dict setValue:left forKey:@"leftTickets"];
+    
+    return [self updateToTable:@"routes" value:dict condition:[NSString stringWithFormat:@"airplaneID = '%d'",airplaneID] ];
 }
 @end

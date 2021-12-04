@@ -14,6 +14,8 @@
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
+@property(nonatomic,strong) DBManager* manager;
+
 @end
 
 @implementation ViewController{
@@ -45,6 +47,8 @@
         self.model.routes = [[[DBManager sharedManager] selectRoutesFor:_destination] mutableCopy];
     }
     
+    self.manager = [DBManager sharedManager];
+    
 }
 
 #pragma mark UITableViewDelegate & DataSource
@@ -61,10 +65,11 @@
     
     return cell;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 150;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     RouteModel* model = self.model.routes[indexPath.row];
@@ -88,11 +93,24 @@
             client.orderCnt = cnt;
             client.status = status;
             
+            BOOL result = [self.manager insertToClientsWithName:name cnt:[NSNumber numberWithInt:cnt] status:[NSNumber numberWithInt:status] plane:[NSNumber numberWithInt:model.airplaneID]];
+            
+            result = result && [self.manager insertToBuyWithName:name routeID:[NSNumber numberWithLong:model.airRouteID] planeID:[NSNumber numberWithInt:model.airplaneID] cnt:[NSNumber numberWithInt:cnt]];
+            
             [model.clientModels addObject:client];
             
             model.leftTickets -= cnt;
-            //[self.navigationController popViewControllerAnimated:YES];
-            NSLog(@"成功购票！");
+            
+            result = result && [self.manager updateLeftTickets:[NSNumber numberWithInt:model.leftTickets] airplaneID:model.airplaneID];
+            
+            if (result == YES) {
+                NSLog(@"成功购票！");
+            } else {
+                NSLog(@"购票失败!");
+            }
+            
+            [self.tableView reloadData];
+            
             ResultViewController* resultVC = [[ResultViewController alloc]init];
             resultVC.model = model;
             [self.navigationController pushViewController:resultVC animated:YES];

@@ -83,6 +83,7 @@
     DBManager* manager = [DBManager sharedManager];
     assert([manager selectAllRoute]);
     
+    // [manager insertToClientsWithName:@"wcw" cnt:@1 status:@1];
 }
 /*
 #pragma mark - Navigation
